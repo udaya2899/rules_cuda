@@ -154,6 +154,7 @@ def _generate_toolchain_build(repository_ctx, cuda):
     repository_ctx.template("toolchain/BUILD", tpl_label, substitutions = substitutions, executable = False)
 
 def _generate_toolchain_clang_build(repository_ctx, cuda, clang_path):
+    print("inside generate_toolchain_clang_build " + str(cuda.path))
     tpl_label = Label("//cuda/private:templates/BUILD.local_toolchain_clang")
     substitutions = {
         "%{clang_path}": _to_forward_slash(clang_path) if clang_path else "cuda-clang-not-found",
