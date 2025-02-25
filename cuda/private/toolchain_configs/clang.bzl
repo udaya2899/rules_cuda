@@ -124,20 +124,7 @@ def _impl(ctx):
                 actions = [
                     ACTION_NAMES.cuda_compile,
                 ],
-                flag_groups = [flag_group(flags = ["--cuda-path=external/rules_cuda++toolchain+local_cuda/clang/nvvm"])],
-            ),
-        ],
-    )
-
-    cuda_device_only_feature = feature(
-        name = "cuda_device_only",
-        enabled = True,
-        flag_sets = [
-            flag_set(
-                actions = [
-                    ACTION_NAMES.cuda_compile,
-                ],
-                flag_groups = [flag_group(flags= ["--cuda-device-only"])],
+                flag_groups = [flag_group(flags = ["--cuda-path=" + ctx.attr.cuda_toolkit[CudaToolkitInfo].path])],
             ),
         ],
     )
@@ -171,7 +158,7 @@ def _impl(ctx):
                             "-Wall",
                             "-Wthread-safety",
                             "-Wself-assign",
-                            "-Wunused-but-set-parameter",
+                            "-Wunused-but-set-parameter", 
                             "-Wno-free-nonheap-object",
                             "-fcolor-diagnostics",
                             "-fno-omit-frame-pointer",
@@ -481,7 +468,6 @@ def _impl(ctx):
 
     features = [
         cuda_path_feature,
-        cuda_device_only_feature,
         supports_compiler_device_link_feature,
         supports_wrapper_device_link_feature,
         dependency_file_feature,
