@@ -158,7 +158,7 @@ def _generate_toolchain_clang_build(repository_ctx, cuda, clang_path):
     tpl_label = Label("//cuda/private:templates/BUILD.local_toolchain_clang")
     substitutions = {
         "%{clang_path}": _to_forward_slash(clang_path) if clang_path else "cuda-clang-not-found",
-        "%{cuda_path}": _to_forward_slash(cuda.path) if cuda.path else "cuda-not-found",
+        "%{cuda_path}": _to_forward_slash(cuda.path) if cuda.path else "external/rules_cuda++toolchain+local_cuda/clang",
         "%{cuda_version}": "{}.{}".format(cuda.version_major, cuda.version_minor),
         "%{nvcc_label}": cuda.nvcc_label,
         "%{nvlink_label}": cuda.nvlink_label,
